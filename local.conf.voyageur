@@ -1,0 +1,54 @@
+[[local|localrc]]
+enable_service rabbit
+# still not available in CentOS (as of 11/13/2015)
+disable_service zookeeper
+
+#NOVA
+enable_service n-novnc
+
+#NEUTRON
+disable_service n-net
+enable_service q-dhcp
+enable_service q-svc
+enable_service q-agt
+enable_service q-l3
+enable_service q-meta
+#enable_service q-lbaas
+#enable_service q-vpnaas
+enable_service neutron
+Q_PLUGIN=ml2
+enable_plugin neutron https://github.com/openstack/neutron
+enable_service q-qos
+
+#HEAT
+disable_service h-eng
+disable_service h-api
+disable_service h-api-cfn
+disable_service h-api-cw
+
+#SWIFT
+disable_service swift
+#PASSWORDS
+MYSQL_PASSWORD=pass123456
+SERVICE_TOKEN=pass123456
+SERVICE_PASSWORD=pass123456
+ADMIN_PASSWORD=pass123456
+RABBIT_PASSWORD=pass123456
+
+#ETC...
+VOLUME_BACKING_FILE_SIZE=2048M
+API_RATE_LIMIT=False
+#VERBOSE=FALSE
+SCREEN_LOGDIR=$DEST/logs/screen
+DATA_DIR=/opt/data
+
+# faster to download
+GIT_BASE="https://github.com"
+
+# Q_BUILD_OVS_FROM_GIT=True
+
+VIRT_DRIVER=libvirt
+# To use nested KVM, un-comment the below line
+LIBVIRT_TYPE=kvm
+# If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
+# export YUM=dnf

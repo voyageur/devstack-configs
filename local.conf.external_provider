@@ -1,0 +1,67 @@
+[[local|localrc]]
+enable_service rabbit
+# still not available in CentOS (as of 11/13/2015)
+disable_service zookeeper
+
+#NOVA
+enable_service n-novnc
+
+#NEUTRON
+disable_service n-net
+enable_service q-dhcp
+enable_service q-svc
+enable_service q-agt
+enable_service q-l3
+enable_service q-meta
+#enable_service q-lbaas
+#enable_service q-vpnaas
+enable_service neutron
+Q_PLUGIN=ml2
+enable_plugin neutron https://github.com/openstack/neutron
+enable_service q-qos
+
+#HEAT
+disable_service h-eng
+disable_service h-api
+disable_service h-api-cfn
+disable_service h-api-cw
+
+#SWIFT
+disable_service swift
+#PASSWORDS
+MYSQL_PASSWORD=pass123456
+SERVICE_TOKEN=pass123456
+SERVICE_PASSWORD=pass123456
+ADMIN_PASSWORD=pass123456
+RABBIT_PASSWORD=pass123456
+
+#ETC...
+VOLUME_BACKING_FILE_SIZE=2048M
+API_RATE_LIMIT=False
+#VERBOSE=FALSE
+SCREEN_LOGDIR=$DEST/logs/screen
+DATA_DIR=/opt/data
+
+# faster to download
+GIT_BASE="https://github.com"
+
+# Q_BUILD_OVS_FROM_GIT=True
+
+VIRT_DRIVER=libvirt
+# To use nested KVM, un-comment the below line
+LIBVIRT_TYPE=kvm
+# If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
+# export YUM=dnf
+
+# Open vSwitch provider networking configuration
+PUBLIC_INTERFACE=eth0
+Q_USE_PROVIDERNET_FOR_PUBLIC=True
+OVS_PHYSICAL_BRIDGE=br-ex
+PUBLIC_BRIDGE=br-ex
+OVS_BRIDGE_MAPPINGS=public:br-ex
+FLOATING_RANGE="192.168.121.0/24"
+FIXED_RANGE="10.0.0.0/24"
+Q_FLOATING_ALLOCATION_POOL=start=192.168.121.200,end=192.168.121.254
+PUBLIC_NETWORK_GATEWAY="192.168.121.1"
+# TODO set manually ip
+HOST_IP="192.168.121.xx"

@@ -8,6 +8,17 @@ enable_service rabbit
 # still not available in CentOS (as of 11/13/2015)
 disable_service zookeeper
 
+# Branches
+HORIZON_BRANCH=stable/mitaka
+KEYSTONE_BRANCH=stable/mitaka
+NOVA_BRANCH=stable/mitaka
+GLANCE_BRANCH=stable/mitaka
+CINDER_BRANCH=stable/mitaka
+NEUTRON_BRANCH=stable/mitaka
+SWIFT_BRANCH=stable/mitaka
+HEAT_BRANCH=stable/mitaka
+TROVE_BRANCH=stable/mitaka
+
 #NOVA
 enable_service n-novnc
 
@@ -28,8 +39,7 @@ ENABLE_TENANT_TUNNELS=True
 Q_ML2_TENANT_NETWORK_TYPE=vxlan
 
 # SFC
-enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc
-#enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc refs/changes/89/351789/14
+enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc stable/mitaka
 SFC_UPDATE_OVS=False
 
 #HEAT

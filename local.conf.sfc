@@ -1,5 +1,4 @@
 [[local|localrc]]
-SUBNETPOOL_PREFIX_V4=192.168.0.0/24
 # The name of the RECLONE environment variable is a bit misleading.  It doesn't actually
 # reclone repositories, rather it uses git fetch to make sure the repos are current.
 RECLONE=True
@@ -54,6 +53,7 @@ API_RATE_LIMIT=False
 #VERBOSE=FALSE
 SCREEN_LOGDIR=$DEST/logs/screen
 DATA_DIR=/opt/data
+SUBNETPOOL_PREFIX_V4=192.168.0.0/24
 
 # Q_BUILD_OVS_FROM_GIT=True
 

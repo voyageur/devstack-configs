@@ -51,15 +51,15 @@ API_RATE_LIMIT=False
 #VERBOSE=FALSE
 SCREEN_LOGDIR=$DEST/logs/screen
 DATA_DIR=/opt/data
+SUBNETPOOL_PREFIX_V4=192.168.0.0/24
 
 # faster to download
 GIT_BASE="https://github.com"
 
 # Q_BUILD_OVS_FROM_GIT=True
 
-[[post-config|/$Q_PLUGIN_CONF_FILE]]
-
-[securitygroup]
-#firewall_driver=openvswitch
-
-
+VIRT_DRIVER=libvirt
+# To use nested KVM, un-comment the below line
+LIBVIRT_TYPE=kvm
+# If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
+# export YUM=dnf

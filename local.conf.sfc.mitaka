@@ -7,7 +7,7 @@ enable_service rabbit
 # still not available in CentOS (as of 11/13/2015)
 disable_service zookeeper
 
-# Branches
+# Branches (these are set by the devstack checkout, but better safe than sorry)
 HORIZON_BRANCH=stable/mitaka
 KEYSTONE_BRANCH=stable/mitaka
 NOVA_BRANCH=stable/mitaka

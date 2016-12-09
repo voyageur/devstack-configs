@@ -29,7 +29,6 @@ Q_ML2_TENANT_NETWORK_TYPE=vxlan
 # SFC
 enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc
 #enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc refs/changes/89/351789/14
-SFC_UPDATE_OVS=False
 
 #HEAT
 disable_service h-eng
@@ -54,8 +53,6 @@ API_RATE_LIMIT=False
 SCREEN_LOGDIR=$DEST/logs/screen
 DATA_DIR=/opt/data
 SUBNETPOOL_PREFIX_V4=192.168.0.0/24
-
-# Q_BUILD_OVS_FROM_GIT=True
 
 VIRT_DRIVER=libvirt
 # To use nested KVM, un-comment the below line

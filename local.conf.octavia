@@ -37,6 +37,10 @@ enable_service o-cw
 enable_service o-hm
 enable_service o-hk
 enable_service o-api
+# I use 192.168.0.0 for default subnet
+OCTAVIA_MGMT_SUBNET=${OCTAVIA_MGMT_SUBNET:-"172.16.0.0/24"}
+OCTAVIA_MGMT_SUBNET_START=${OCTAVIA_MGMT_SUBNET_START:-"172.16.0.2"}
+OCTAVIA_MGMT_SUBNET_END=${OCTAVIA_MGMT_SUBNET_END:-"172.16.0.200"}
 
 #HEAT
 disable_service h-eng
@@ -61,8 +65,6 @@ API_RATE_LIMIT=False
 SCREEN_LOGDIR=$DEST/logs/screen
 DATA_DIR=/opt/data
 SUBNETPOOL_PREFIX_V4=192.168.0.0/24
-
-# Q_BUILD_OVS_FROM_GIT=True
 
 VIRT_DRIVER=libvirt
 # To use nested KVM, un-comment the below line

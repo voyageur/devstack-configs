@@ -1,0 +1,75 @@
+[[local|localrc]]
+# The name of the RECLONE environment variable is a bit misleading.  It doesn't actually
+# reclone repositories, rather it uses git fetch to make sure the repos are current.
+RECLONE=True
+
+enable_service rabbit
+# still not available in CentOS (as of 11/13/2015)
+disable_service zookeeper
+
+#NOVA
+enable_service n-novnc
+
+#NEUTRON
+disable_service n-net
+enable_service q-svc
+enable_plugin neutron https://github.com/openstack/neutron
+enable_service q-qos
+Q_PLUGIN=ml2
+ENABLE_TENANT_TUNNELS=True
+Q_ML2_TENANT_NETWORK_TYPE=geneve
+
+# Disable Neutron agents not used with OVN.
+disable_service q-agt
+disable_service q-l3
+disable_service q-dhcp
+disable_service q-meta
+
+#OVN
+enable_plugin networking-ovn https://git.openstack.org/openstack/networking-ovn
+enable_service ovn-northd
+enable_service ovn-controller
+
+# Whether or not to build custom openvswitch kernel modules from the ovs git
+# tree. This is enabled by default.  This is required unless your distro kernel
+# includes ovs+conntrack support.  This support was first released in Linux 4.3,
+# and will likely be backported by some distros.
+OVN_BUILD_MODULES=False
+
+
+# SFC
+enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc
+#enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc refs/changes/89/351789/14
+
+#NEUTRON_FLOWCLASSIFIER_DRIVERS="ovn"
+#NEUTRON_SFC_DRIVERS="ovn"
+
+#HEAT
+disable_service h-eng
+disable_service h-api
+disable_service h-api-cfn
+disable_service h-api-cw
+
+#SWIFT
+disable_service swift
+
+#PASSWORDS
+MYSQL_PASSWORD=pass123456
+SERVICE_TOKEN=pass123456
+SERVICE_PASSWORD=pass123456
+ADMIN_PASSWORD=pass123456
+RABBIT_PASSWORD=pass123456
+
+#ETC...
+VOLUME_BACKING_FILE_SIZE=2048M
+API_RATE_LIMIT=False
+#VERBOSE=FALSE
+SCREEN_LOGDIR=$DEST/logs/screen
+DATA_DIR=/opt/data
+SUBNETPOOL_PREFIX_V4=192.168.0.0/24
+
+VIRT_DRIVER=libvirt
+# To use nested KVM, un-comment the below line
+LIBVIRT_TYPE=kvm
+# If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
+# export YUM=dnf

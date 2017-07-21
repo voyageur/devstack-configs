@@ -39,6 +39,11 @@ disable_service h-api-cw
 #SWIFT
 disable_service swift
 
+#CINDER
+disable_service c-api
+disable_service c-sch
+disable_service c-vol
+
 #PASSWORDS
 MYSQL_PASSWORD=pass123456
 SERVICE_TOKEN=pass123456

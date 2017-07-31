@@ -30,6 +30,9 @@ Q_ML2_TENANT_NETWORK_TYPE=vxlan
 enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc
 #enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc refs/changes/89/351789/14
 
+# Grab OSC client and plugin from git
+LIBS_FROM_GIT+=python-openstackclient,python-neutronclient
+
 #HEAT
 disable_service h-eng
 disable_service h-api

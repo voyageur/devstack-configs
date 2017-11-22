@@ -17,8 +17,6 @@ enable_service q-svc
 enable_service q-agt
 enable_service q-l3
 enable_service q-meta
-#enable_service q-lbaas
-#enable_service q-vpnaas
 enable_service neutron
 Q_PLUGIN=ml2
 enable_plugin neutron https://github.com/openstack/neutron
@@ -26,17 +24,20 @@ enable_service q-qos
 ENABLE_TENANT_TUNNELS=True
 Q_ML2_TENANT_NETWORK_TYPE=vxlan
 
-# LBaaS V2 and Octavia
-enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas
-enable_plugin neutron-lbaas-dashboard https://git.openstack.org/openstack/neutron-lbaas-dashboard
+# Octavia
+LIBS_FROM_GIT+=,diskimage-builder,python-octaviaclient
 enable_plugin octavia https://git.openstack.org/openstack/octavia
+enable_plugin octavia-dashboard https://git.openstack.org/openstack/octavia-dashboard
 enable_plugin barbican https://git.openstack.org/openstack/barbican
-enable_service q-lbaasv2
 enable_service octavia
 enable_service o-cw
 enable_service o-hm
 enable_service o-hk
 enable_service o-api
+# CentOS amphora
+OCTAVIA_HYPERVISOR=kvm
+OCTAVIA_AMP_BASE_OS=centos
+OCTAVIA_AMP_DISTRIBUTION_RELEASE_ID=7
 # I use 192.168.0.0 for default subnet
 OCTAVIA_MGMT_SUBNET=${OCTAVIA_MGMT_SUBNET:-"172.16.0.0/24"}
 OCTAVIA_MGMT_SUBNET_START=${OCTAVIA_MGMT_SUBNET_START:-"172.16.0.2"}

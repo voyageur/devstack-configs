@@ -1,0 +1,104 @@
+# Only partially tested, just here for reference
+[[local|localrc]]
+# The name of the RECLONE environment variable is a bit misleading.  It doesn't actually
+# reclone repositories, rather it uses git fetch to make sure the repos are current.
+RECLONE=True
+
+enable_service rabbit
+
+#NOVA
+enable_service n-novnc
+
+#NEUTRON
+enable_service q-dhcp
+enable_service q-svc
+enable_service q-meta
+enable_plugin neutron https://github.com/openstack/neutron
+
+# ODL
+ODL_RELEASE=carbon-snapshot-0.6
+#ODL_RELEASE=latest-snapshot
+
+# Set here which ODL openstack service provider to use
+# These are core ODL features
+ODL_NETVIRT_KARAF_FEATURE=odl-neutron-service,odl-restconf-all,odl-aaa-authn,odl-dlux-core,odl-mdsal-apidocs
+# Set DLUX Karaf features needed for the ODL GUI at http://<ODL_IP>:8181/index.html
+ODL_NETVIRT_KARAF_FEATURE+=,odl-dluxapps-nodes,odl-dluxapps-topology,odl-dluxapps-yangui,odl-dluxapps-yangvisualizer
+# Set L2 Karaf features needed for the ODL GUI at http://<ODL_IP>:8181/index.html
+ODL_NETVIRT_KARAF_FEATURE+=,odl-l2switch-switch,odl-l2switch-switch-ui,odl-ovsdb-hwvtepsouthbound-ui,odl-ovsdb-southbound-impl-ui,odl-netvirt-ui
+# Set OpenFlow Karaf features needed for the ODL GUI at http://<ODL_IP>:8181/index.html
+ODL_NETVIRT_KARAF_FEATURE+=,odl-openflowplugin-flow-services-ui
+# odl-netvirt-openstack is used for new netvirt
+ODL_NETVIRT_KARAF_FEATURE+=,odl-netvirt-openstack
+# optional feature neutron-logger to log changes of neutron yang models
+ODL_NETVIRT_KARAF_FEATURE+=,odl-neutron-logger
+# enable the odl-netvirt-sfc Karaf feature in OpenDaylight
+ODL_NETVIRT_KARAF_FEATURE+=,odl-netvirt-sfc
+
+# Switch to using the ODL's L3 implementation
+ODL_L3=True
+
+# Set Host IP here. It is externally reachable network, set
+# below param to use ip from a different network
+HOST_IP=$(ip route get 8.8.8.8| awk -F'src ' '{print $2;exit}'|awk '{print $1}')
+
+# public network connectivity
+Q_USE_PUBLIC_VETH=True
+Q_PUBLIC_VETH_EX=veth-pub-ex
+Q_PUBLIC_VETH_INT=veth-pub-int
+ODL_PROVIDER_MAPPINGS=public:${Q_PUBLIC_VETH_INT}
+
+# Enable debug logs for odl ovsdb
+#ODL_NETVIRT_DEBUG_LOGS=True
+
+enable_plugin networking-odl https://git.openstack.org/openstack/networking-odl
+
+FIXED_RANGE=10.1.0.0/20
+FLOATING_RANGE=172.24.5.0/24
+PUBLIC_NETWORK_GATEWAY=172.24.5.1
+FIXED_NETWORK_SIZE=4096
+
+# SFC
+NEUTRON_FLOWCLASSIFIER_DRIVERS="odl_v2"
+NEUTRON_SFC_DRIVERS="odl_v2"
+enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc
+#enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc refs/changes/89/351789/14
+
+# Grab OSC client and plugin from git
+LIBS_FROM_GIT+=python-openstackclient,python-neutronclient
+
+# Build OVS 2.8 (and do not overwrite it in networking-odl)
+Q_BUILD_OVS_FROM_GIT=True
+OVS_BRANCH="v2.8.1"
+SKIP_OVS_INSTALL=True
+
+#HEAT
+disable_service h-eng
+disable_service h-api
+disable_service h-api-cfn
+disable_service h-api-cw
+
+#SWIFT
+disable_service swift
+
+#CINDER
+disable_service c-api
+disable_service c-sch
+disable_service c-vol
+
+#PASSWORDS
+MYSQL_PASSWORD=pass123456
+SERVICE_TOKEN=pass123456
+SERVICE_PASSWORD=pass123456
+ADMIN_PASSWORD=pass123456
+RABBIT_PASSWORD=pass123456
+
+#ETC...
+VOLUME_BACKING_FILE_SIZE=2048M
+API_RATE_LIMIT=False
+#VERBOSE=FALSE
+LOGFILE=$DEST/logs/stack.sh.log
+DATA_DIR=/opt/data
+
+VIRT_DRIVER=libvirt
+LIBVIRT_TYPE=kvm

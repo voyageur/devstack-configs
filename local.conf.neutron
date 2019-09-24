@@ -11,22 +11,23 @@ disable_service zookeeper
 enable_service n-novnc
 
 #NEUTRON
-disable_service n-net
+Q_PLUGIN=ml2
+ENABLE_TENANT_TUNNELS=True
+Q_ML2_TENANT_NETWORK_TYPE=vxlan
+#Q_BUILD_OVS_FROM_GIT=True
+#NEUTRON_BRANCH=refs/changes/80/348080/30
+#NEUTRON_DEPLOY_MOD_WSGI=True
+
+enable_plugin neutron https://github.com/openstack/neutron
+enable_plugin neutron-tempest-plugin https://github.com/openstack/neutron-tempest-plugin
+
 enable_service q-dhcp
 enable_service q-svc
 enable_service q-agt
 enable_service q-l3
 enable_service q-meta
-#enable_service q-lbaas
-#enable_service q-vpnaas
-enable_service neutron
-Q_PLUGIN=ml2
-enable_plugin neutron https://github.com/openstack/neutron
-enable_plugin neutron-tempest-plugin https://github.com/openstack/neutron-tempest-plugin
-
 enable_service q-qos
-ENABLE_TENANT_TUNNELS=True
-Q_ML2_TENANT_NETWORK_TYPE=vxlan
+enable_service neutron
 
 # with latest OSC plugin
 #LIBS_FROM_GIT+=python-openstackclient,python-neutronclient
@@ -34,6 +35,10 @@ Q_ML2_TENANT_NETWORK_TYPE=vxlan
 # Skydive
 #enable_plugin skydive https://github.com/skydive-project/skydive.git
 #enable_service skydive-agent skydive-analyzer
+
+# SFC
+#enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc
+#enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc refs/changes/29/518029/1
 
 #HEAT
 disable_service h-eng

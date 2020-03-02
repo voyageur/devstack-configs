@@ -21,12 +21,14 @@ Q_ML2_TENANT_NETWORK_TYPE=vxlan
 enable_plugin neutron https://github.com/openstack/neutron
 enable_plugin neutron-tempest-plugin https://github.com/openstack/neutron-tempest-plugin
 
-enable_service q-dhcp
-enable_service q-svc
-enable_service q-agt
-enable_service q-l3
-enable_service q-meta
-enable_service q-qos
+enable_service neutron-dhcp
+enable_service neutron-svc
+enable_service neutron-agt
+enable_service neutron-l3
+enable_service neutron-meta
+enable_service neutron-qos
+enable_service neutron-placement
+enable_service neutron-segments
 enable_service neutron
 
 # with latest OSC plugin

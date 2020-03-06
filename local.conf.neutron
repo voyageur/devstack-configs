@@ -19,6 +19,7 @@ Q_ML2_TENANT_NETWORK_TYPE=vxlan
 #NEUTRON_DEPLOY_MOD_WSGI=True
 
 enable_plugin neutron https://github.com/openstack/neutron
+#enable_plugin neutron https://opendev.org/openstack/neutron.git refs/changes/53/711353/1
 enable_plugin neutron-tempest-plugin https://github.com/openstack/neutron-tempest-plugin
 
 enable_service neutron-dhcp
@@ -39,8 +40,7 @@ enable_service neutron
 #enable_service skydive-agent skydive-analyzer
 
 # SFC
-#enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc
-#enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc refs/changes/29/518029/1
+#enable_plugin networking-sfc https://opendev.org/openstack/networking-sfc #refs/changes/29/518029/1
 
 #HEAT
 disable_service h-eng

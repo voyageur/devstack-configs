@@ -26,9 +26,9 @@ Q_ML2_TENANT_NETWORK_TYPE=vxlan
 
 # Octavia
 LIBS_FROM_GIT+=,diskimage-builder,python-octaviaclient
-enable_plugin octavia https://git.openstack.org/openstack/octavia
-enable_plugin octavia-dashboard https://git.openstack.org/openstack/octavia-dashboard
-enable_plugin barbican https://git.openstack.org/openstack/barbican
+enable_plugin octavia https://github.com/openstack/octavia
+enable_plugin octavia-dashboard https://github.com/openstack/octavia-dashboard
+enable_plugin barbican https://github.com/openstack/barbican
 enable_service octavia
 enable_service o-cw
 enable_service o-hm

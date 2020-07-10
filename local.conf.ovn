@@ -1,0 +1,91 @@
+[[local|localrc]]
+# The name of the RECLONE environment variable is a bit misleading.  It doesn't actually
+# reclone repositories, rather it uses git fetch to make sure the repos are current.
+RECLONE=True
+
+enable_service rabbit
+# still not available in CentOS (as of 11/13/2015)
+disable_service zookeeper
+
+#NOVA
+enable_service n-novnc
+
+#NEUTRON
+Q_PLUGIN=ml2
+Q_AGENT=ovn
+Q_ML2_PLUGIN_MECHANISM_DRIVERS=ovn,logger
+Q_ML2_PLUGIN_TYPE_DRIVERS=local,flat,vlan,geneve
+Q_ML2_TENANT_NETWORK_TYPE="geneve"
+
+enable_plugin neutron https://opendev.org/openstack/neutron.git
+enable_plugin neutron-tempest-plugin https://github.com/openstack/neutron-tempest-plugin
+
+enable_service ovn-northd
+enable_service ovn-controller
+enable_service q-ovn-metadata-agent
+# Use Neutron
+enable_service q-svc
+
+# Disable Neutron agents not used with OVN.
+disable_service q-agt
+disable_service q-l3
+disable_service q-dhcp
+disable_service q-meta
+
+enable_service neutron
+enable_service neutron-dns
+enable_service neutron-trunk
+
+enable_service neutron-qos
+enable_service neutron-placement
+enable_service neutron-segments
+
+OVN_BUILD_MODULES=True
+ENABLE_CHASSIS_AS_GW=True
+
+# with latest OSC plugin
+#LIBS_FROM_GIT+=python-openstackclient,python-neutronclient
+
+# Skydive
+#enable_plugin skydive https://github.com/skydive-project/skydive.git
+#enable_service skydive-agent skydive-analyzer
+
+# SFC
+#enable_plugin networking-sfc https://opendev.org/openstack/networking-sfc #refs/changes/29/518029/1
+
+# neutron-dynamic-routing
+enable_plugin neutron-dynamic-routing https://opendev.org/openstack/neutron-dynamic-routing
+
+#HEAT
+disable_service h-eng
+disable_service h-api
+disable_service h-api-cfn
+disable_service h-api-cw
+
+#SWIFT
+disable_service swift
+
+#CINDER
+disable_service c-api
+disable_service c-sch
+disable_service c-vol
+
+#PASSWORDS
+MYSQL_PASSWORD=pass123456
+SERVICE_TOKEN=pass123456
+SERVICE_PASSWORD=pass123456
+ADMIN_PASSWORD=pass123456
+RABBIT_PASSWORD=pass123456
+
+#ETC...
+VOLUME_BACKING_FILE_SIZE=2048M
+API_RATE_LIMIT=False
+#VERBOSE=FALSE
+DATA_DIR=/opt/data
+SUBNETPOOL_PREFIX_V4=192.168.0.0/24
+
+VIRT_DRIVER=libvirt
+# To use nested KVM, un-comment the below line
+LIBVIRT_TYPE=kvm
+# If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
+# export YUM=dnf

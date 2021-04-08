@@ -1,0 +1,54 @@
+[[local|localrc]]
+# The name of the RECLONE environment variable is a bit misleading.  It doesn't actually
+# reclone repositories, rather it uses git fetch to make sure the repos are current.
+RECLONE=True
+
+SERVICE_HOST=10.48.0.23
+MYSQL_HOST=$SERVICE_HOST
+RABBIT_HOST=$SERVICE_HOST
+GLANCE_HOSTPORT=$SERVICE_HOST:9292
+
+#NOVA
+enable_service n-novnc
+
+#NEUTRON
+Q_PLUGIN=ml2
+ENABLE_TENANT_TUNNELS=True
+Q_ML2_TENANT_NETWORK_TYPE=vxlan
+Q_DVR_MODE=dvr
+
+ENABLED_SERVICES=n-cpu,q-agt,q-l3,c-vol,placement-client
+
+#HEAT
+disable_service h-eng
+disable_service h-api
+disable_service h-api-cfn
+disable_service h-api-cw
+
+#SWIFT
+disable_service swift
+
+#CINDER
+disable_service c-api
+disable_service c-sch
+disable_service c-vol
+
+#PASSWORDS
+MYSQL_PASSWORD=pass123456
+SERVICE_TOKEN=pass123456
+SERVICE_PASSWORD=pass123456
+ADMIN_PASSWORD=pass123456
+RABBIT_PASSWORD=pass123456
+
+#ETC...
+VOLUME_BACKING_FILE_SIZE=2048M
+API_RATE_LIMIT=False
+#VERBOSE=FALSE
+DATA_DIR=/opt/data
+SUBNETPOOL_PREFIX_V4=192.168.0.0/24
+
+VIRT_DRIVER=libvirt
+# To use nested KVM, un-comment the below line
+LIBVIRT_TYPE=kvm
+# If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
+# export YUM=dnf

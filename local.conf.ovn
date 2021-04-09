@@ -40,7 +40,8 @@ enable_service neutron-qos
 enable_service neutron-placement
 enable_service neutron-segments
 
-OVN_BUILD_MODULES=True
+#OVN_BUILD_MODULES=True
+#OVN_BUILD_FROM_SOURCE=True
 ENABLE_CHASSIS_AS_GW=True
 
 # with latest OSC plugin
@@ -54,7 +55,7 @@ ENABLE_CHASSIS_AS_GW=True
 #enable_plugin networking-sfc https://opendev.org/openstack/networking-sfc #refs/changes/29/518029/1
 
 # neutron-dynamic-routing
-enable_plugin neutron-dynamic-routing https://opendev.org/openstack/neutron-dynamic-routing
+#enable_plugin neutron-dynamic-routing https://opendev.org/openstack/neutron-dynamic-routing
 
 #HEAT
 disable_service h-eng

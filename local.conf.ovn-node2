@@ -18,7 +18,8 @@ Q_ML2_PLUGIN_MECHANISM_DRIVERS=ovn,logger
 Q_ML2_PLUGIN_TYPE_DRIVERS=local,flat,vlan,geneve
 Q_ML2_TENANT_NETWORK_TYPE="geneve"
 
-ENABLED_SERVICES=n-cpu,ovn-controller-,q-ovn-metadata-agent,c-vol,placement-client
+enable_plugin neutron https://opendev.org/openstack/neutron.git
+ENABLED_SERVICES=n-cpu,ovn-controller,q-ovn-metadata-agent,c-vol,placement-client
 
 #HEAT
 disable_service h-eng

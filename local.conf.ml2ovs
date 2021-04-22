@@ -73,5 +73,3 @@ SUBNETPOOL_PREFIX_V4=192.168.0.0/24
 VIRT_DRIVER=libvirt
 # To use nested KVM, un-comment the below line
 LIBVIRT_TYPE=kvm
-# If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
-# export YUM=dnf

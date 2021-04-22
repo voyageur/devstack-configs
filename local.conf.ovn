@@ -23,6 +23,7 @@ enable_plugin neutron-tempest-plugin https://github.com/openstack/neutron-tempes
 enable_service ovn-northd
 enable_service ovn-controller
 enable_service q-ovn-metadata-agent
+
 # Use Neutron
 enable_service q-svc
 
@@ -34,11 +35,12 @@ disable_service q-meta
 
 enable_service neutron
 enable_service neutron-dns
-enable_service neutron-trunk
-
-enable_service neutron-qos
+enable_service neutron-log
 enable_service neutron-placement
+enable_service neutron-port-forwarding
+enable_service neutron-qos
 enable_service neutron-segments
+enable_service neutron-trunk
 
 #OVN_BUILD_MODULES=True
 #OVN_BUILD_FROM_SOURCE=True
@@ -67,6 +69,7 @@ disable_service h-api-cw
 disable_service swift
 
 #CINDER
+disable_service cinder
 disable_service c-api
 disable_service c-sch
 disable_service c-vol
@@ -90,3 +93,8 @@ VIRT_DRIVER=libvirt
 LIBVIRT_TYPE=kvm
 # If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
 # export YUM=dnf
+
+# Uncomment for multinode
+#[[post-config|$NOVA_CONF]]
+#[scheduler]
+#discover_hosts_in_cells_interval = 2

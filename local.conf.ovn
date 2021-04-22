@@ -42,7 +42,7 @@ enable_service neutron-qos
 enable_service neutron-segments
 enable_service neutron-trunk
 
-#OVN_BUILD_MODULES=True
+OVN_BUILD_MODULES=True
 #OVN_BUILD_FROM_SOURCE=True
 ENABLE_CHASSIS_AS_GW=True
 

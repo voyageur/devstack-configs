@@ -25,7 +25,7 @@ enable_service placement-client
 enable_service ovn-controller
 enable_service q-ovn-metadata-agent
 
-#OVN_BUILD_MODULES=True
+OVN_BUILD_MODULES=True
 #OVN_BUILD_FROM_SOURCE=True
 #ENABLE_CHASSIS_AS_GW=False
 
